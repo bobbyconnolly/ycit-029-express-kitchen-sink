@@ -1,12 +1,19 @@
 const express = require("express")
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 const ingredientsDatabase = require("./ingredientsDatabase")
 
 const app = express()
 
 app.set("view engine", "ejs")
+
+// This is a middleware function that will be called for every request
+// and logs the method and url of the request
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`)
+    next()
+})
 
 app.get("/", (req, res) => {
     // This gives us an object with the keys being the ingredients and the values being the descriptions
